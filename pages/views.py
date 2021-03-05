@@ -12,3 +12,7 @@ def contact_view(request, *args, **kwargs):
     #return HttpResponse("<h1>Hello Contact</h1>")
     return render(request, "contact.html", {})
 
+def about_view(request, *args, **kwargs):
+    #return HttpResponse("<h1>Hello Contact</h1>")
+    return render(request, "about.html", {})
+

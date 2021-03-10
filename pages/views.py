@@ -39,11 +39,13 @@ def expression_view(request):
     return render(request, "output.html", {"result": c})
 
 def face_view(request):
+    url1= request.POST.get('content')
+    url2 = request.POST.get('style')
     KEY = "2cde4012d41d4fc68b38fa20f8633e2d"
     ENDPOINT = "https://native-face-recognition.cognitiveservices.azure.com/"
     face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY))
     
-    single_face_image_url = 'https://www.biography.com/.image/t_share/MTQ1MzAyNzYzOTgxNTE0NTEz/john-f-kennedy---mini-biography.jpg'
+    single_face_image_url = url1
     single_image_name = os.path.basename(single_face_image_url)
     detected_faces = face_client.face.detect_with_url(url=single_face_image_url, detection_model='detection_03')
     if not detected_faces:
@@ -72,7 +74,7 @@ def face_view(request):
         
     img.show()
     
-    multi_face_image_url = "http://www.historyplace.com/kennedy/president-family-portrait-closeup.jpg"
+    multi_face_image_url = url2
     multi_image_name = os.path.basename(multi_face_image_url)
     
     detected_faces2 = face_client.face.detect_with_url(url=multi_face_image_url, detection_model='detection_03')
@@ -96,4 +98,7 @@ def face_view(request):
                 print('    Height: ', str(face_info.face_rectangle.height))
                 
     return render(request, "face.html")
+
+    
+
 
